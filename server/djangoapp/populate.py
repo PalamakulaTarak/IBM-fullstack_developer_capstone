@@ -148,5 +148,4 @@ def initiate():
             year=data["year"],
             dealer_id=data["dealer_id"],
         )
-
 # (File ends with a newline)
