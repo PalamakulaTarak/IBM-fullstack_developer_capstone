@@ -1,12 +1,12 @@
+"use strict";
+/* jshint esversion: 8, node: true */
+
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
 const port = 3030;
-
-/* jshint esversion: 8, node: true */
-"use strict";
 
 app.use(cors());
 app.use(require('body-parser').urlencoded({ extended: false }));
@@ -20,20 +20,19 @@ mongoose.connect("mongodb://mongo_db:27017/", { dbName: 'dealershipsDB' });
 const Reviews = require('./review');
 const Dealerships = require('./dealership');
 
-(async () => {
+async function seedData() {
   try {
     await Reviews.deleteMany({});
-    await Reviews.insertMany(reviews_data['reviews']);
+    await Reviews.insertMany(reviews_data.reviews);
     await Dealerships.deleteMany({});
-    await Dealerships.insertMany(dealerships_data['dealerships']);
+    await Dealerships.insertMany(dealerships_data.dealerships);
     console.log("Seed data loaded.");
   } catch (error) {
     console.error("Error seeding data:", error);
   }
-})();
+}
 
-const reviews = payload.reviews;
-const dealers = data.dealerships;
+seedData();
 
 // Express route to home
 app.get('/', async (req, res) => {
@@ -99,29 +98,13 @@ app.get('/fetchDealer/:id', async (req, res) => {
 });
 
 //Express route to insert review
-app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
-  data = JSON.parse(req.body);
-  const documents = await Reviews.find().sort( { id: -1 } )
-  let new_id = documents[0]['id']+1
-
-  const review = new Reviews({
-		"id": new_id,
-		"name": data['name'],
-		"dealership": data['dealership'],
-		"review": data['review'],
-		"purchase": data['purchase'],
-		"purchase_date": data['purchase_date'],
-		"car_make": data['car_make'],
-		"car_model": data['car_model'],
-		"car_year": data['car_year'],
-	});
-
+app.post('/insert_review', async (req, res) => {
   try {
-    const savedReview = await review.save();
-    res.json(savedReview);
-  } catch (error) {
-		console.log(error);
-    res.status(500).json({ error: 'Error inserting review' });
+    const data = JSON.parse(req.body);
+    await Reviews.create(data);
+    return res.status(201).json({ status: 'created' });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
   }
 });
 
