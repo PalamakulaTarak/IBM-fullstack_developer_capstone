@@ -147,4 +147,6 @@ def initiate():
             type=data["type"],
             year=data["year"],
             dealer_id=data["dealer_id"],
-        )  # Ensure line 150 has no trailing spaces or tabs.
+        )
+
+# (File ends with a newline)
