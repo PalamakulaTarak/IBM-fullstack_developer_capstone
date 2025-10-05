@@ -5,6 +5,9 @@ const cors = require('cors');
 const app = express();
 const port = 3030;
 
+/* jshint esversion: 8, node: true */
+"use strict";
+
 app.use(cors());
 app.use(require('body-parser').urlencoded({ extended: false }));
 
@@ -29,7 +32,8 @@ const Dealerships = require('./dealership');
   }
 })();
 
-
+const reviews = payload.reviews;
+const dealers = data.dealerships;
 
 // Express route to home
 app.get('/', async (req, res) => {
