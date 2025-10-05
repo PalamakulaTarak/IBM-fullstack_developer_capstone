@@ -164,4 +164,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/static'),
     os.path.join(BASE_DIR, 'frontend/build'),
     os.path.join(BASE_DIR, 'frontend/build/static'),
-]# After the last line (167), add a new blank line.
+]  # After the last line (167), add a new blank line.
