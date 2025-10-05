@@ -72,10 +72,7 @@ def registration(request):
         )
         login(request, user)
         return JsonResponse({"userName": username, "status": "Authenticated"})
-    else:
-        return JsonResponse(
-            {"userName": username, "error": "Already Registered"}
-        )
+    return JsonResponse({"userName": username, "error": "Already Registered"})
 
 
 def get_dealerships(request, state="All"):
