@@ -1,12 +1,8 @@
 # Uncomment the required imports before adding the code
 from .restapis import get_request, analyze_review_sentiments, post_review
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout, login, authenticate
-from django.contrib import messages
-from datetime import datetime
 from .models import CarMake, CarModel
 from .populate import initiate
 from django.http import JsonResponse
