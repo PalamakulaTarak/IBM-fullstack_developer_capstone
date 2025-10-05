@@ -147,4 +147,4 @@ def initiate():
             type=data["type"],
             year=data["year"],
             dealer_id=data["dealer_id"],
-        )  
+        )
